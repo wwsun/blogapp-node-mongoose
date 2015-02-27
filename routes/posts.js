@@ -27,6 +27,17 @@ module.exports = function (app) {
     })
 
     //TODO read
+    app.get("/post/:id", function (req, res, next) {
+        var query = BlogPost.findById(req.param('id'));
+
+        query.populate('author');
+
+        query.exec(function (err, post) {
+            if (err) return next(err);
+            if (!post) return next(); // 404
+            res.render('post/view.jade', { post: post });
+        })
+    })
 
     //TODO update
 
