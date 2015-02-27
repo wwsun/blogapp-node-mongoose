@@ -6,7 +6,7 @@ var BlogPost = mongoose.model('BlogPost');
 
 module.exports = function (app) {
 
-    //create
+    // create
     app.get("/post/create", loggedIn, function (req, res) {
         res.render('post/create.jade');
     })
@@ -26,7 +26,7 @@ module.exports = function (app) {
         });
     })
 
-    //read
+    // read
     app.get("/post/:id", function (req, res, next) {
         var query = BlogPost.findById(req.param('id'));
 
@@ -39,7 +39,26 @@ module.exports = function (app) {
         })
     })
 
-    //TODO update
+    // TODO update
 
-    //TODO delete
+    // delete
+    app.get('/post/remove/:id', loggedIn, function (req, res, next) {
+        var id = req.param('id');
+
+        BlogPost.findOne({ _id: id}, function (err, post) {
+            if (err) return next(err);
+
+            // validate logged in user authored this post
+            if (post.author != req.session.user) {
+                return res.send(403);
+            }
+
+            post.remove(function (err) {
+                if (err) return next(err);
+
+                // TODO display a confirmation msg to user
+                res.redirect('/');
+            })
+        })
+    })
 }
