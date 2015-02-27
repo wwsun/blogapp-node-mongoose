@@ -9,4 +9,9 @@ var schema = mongoose.Schema({
     , hash: { type: String, required: true }
 });
 
+// properties that do not get saved to the db
+schema.virtual('fullname').get(function () {
+    return this.name.first + ' ' + this.name.last;
+})
+
 mongoose.model('User', schema);
