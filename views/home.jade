@@ -1,5 +1,14 @@
 extends layout
 
 block content
-    h1 This is site is under building!
-    p This is a empty blog
+    if session.isLoggedIn
+        p
+            a(href="/post/create") New post
+    if !(posts && posts.length)
+        p Nothing to see here. Move along...
+    else
+        ul.posts
+            each post in posts
+                li
+                    h2
+                        a(herf="/post/#{post.id}")= post.title
