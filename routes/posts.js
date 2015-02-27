@@ -1,6 +1,9 @@
 
 var loggedIn = require('../middleware/loggedIn');
 
+var mongoose = require('mongoose');
+var BlogPost = mongoose.model('BlogPost');
+
 module.exports = function (app) {
 
     //create
