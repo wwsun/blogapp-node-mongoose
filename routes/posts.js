@@ -26,7 +26,7 @@ module.exports = function (app) {
         });
     })
 
-    //TODO read
+    //read
     app.get("/post/:id", function (req, res, next) {
         var query = BlogPost.findById(req.param('id'));
 
