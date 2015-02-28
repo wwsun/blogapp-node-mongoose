@@ -3,6 +3,7 @@ var loggedIn = require('../middleware/loggedIn');
 
 var mongoose = require('mongoose');
 var BlogPost = mongoose.model('BlogPost');
+var Comment = mongoose.model('Comment');
 
 module.exports = function (app) {
 
@@ -28,14 +29,19 @@ module.exports = function (app) {
 
     // read
     app.get("/post/:id", function (req, res, next) {
-        var query = BlogPost.findById(req.param('id'));
+        var id = req.param('id');
 
-        query.populate('author');
+        var promise = BlogPost.findComments(id)
+                        .sort('created')
+                        .select('-_id')  // exclude the _id
+                        .exec();
+
+        var query = BlogPost.findById(id).populate('author');
 
         query.exec(function (err, post) {
             if (err) return next(err);
             if (!post) return next(); // 404
-            res.render('post/view.jade', { post: post });
+            res.render('post/view.jade', { post: post, comments: promise });
         })
     })
 
@@ -71,6 +77,24 @@ module.exports = function (app) {
                 // TODO display a confirmation msg to user
                 res.redirect('/');
             })
+        })
+    })
+
+    // comment
+    app.post("/post/comment/:id", loggedIn, function (req, res, next) {
+        var id = req.param('id');
+        var text = req.param('text');
+        var author = req.session.user;
+
+        Comment.create({
+            post: id,
+            text: text,
+            author: author
+        }, function (err, comment) {
+            if (err) return next(err);
+
+            // TODO probably want to do this all with xhr(AJAX)
+            res.redirect("/post/" + id);
         })
     })
 }
