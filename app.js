@@ -2,6 +2,9 @@
 var mongoose = require('mongoose');
 var express = require('express');
 
+// add mongoose query and promise support to express
+require('express-mongoose');
+
 var models = require('./models');
 var routes = require('./routes');
 var middleware = require('./middleware');

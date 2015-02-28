@@ -39,7 +39,19 @@ module.exports = function (app) {
         })
     })
 
-    // TODO update
+    // update
+    app.get("/post/edit/:id", loggedIn, function (req, res, next) {
+        res.render('post/create.jade', {
+            post: BlogPost.findById(req.param('id'))
+        });
+    })
+
+    app.post("/post/edit/:id", loggedIn, function (req, res, next) {
+        BlogPost.edit(req, function (err) {
+            if (err) return next(err);
+            res.redirect("/post/" + req.param('id'));
+        })
+    })
 
     // delete
     app.get('/post/remove/:id', loggedIn, function (req, res, next) {
