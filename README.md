@@ -12,7 +12,7 @@ To running the node-mongoose blog, you should install the following dependencies
 
 ###Download
 
-    git clone https://github.com/wwsun/blogapp-node-mongoose.git
+    git clone https://github.com/wwsun/blogapp-node-mongoose.git#release_1.0
 
 ###Running
 

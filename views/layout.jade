@@ -1,20 +1,7 @@
-html5
+doctype html
 html
-    head
-        title= pageTitle
-    body
-        header
-            h1= pageTitle
-        a(href="/") Home
-        section.login
-            ul
-                if session.isLoggedIn
-                    li
-                        a(href="/logout") Logout
-                else
-                    li
-                        a(href="/login") Login
-                    li
-                        a(href="/signup") Create Account
-        section.content
-            block content
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content

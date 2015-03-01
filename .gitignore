@@ -3,3 +3,6 @@
 
 # folers
 node_modules/
+
+# old files
+_old/
