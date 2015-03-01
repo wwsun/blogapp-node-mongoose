@@ -1,21 +1,27 @@
-html5
-    html
-        head
-            title= pageTitle
-            link(rel='stylesheet', href='/stylesheets/style.css')
-        body
-            header
-                h1= pageTitle
-            a(href="/") Home
-            section.login
-                ul
-                    if session.isLoggedIn
+doctype html
+html
+    head
+        title= pageTitle
+        link(rel='stylesheet', href='http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css')
+        link(rel='stylesheet', href="/stylesheets/style.css")
+    body
+        nav.navbar.navbar-default.navbar-static-top
+            div.container
+                div.navbar-header
+                    a.navbar-brand Blog
+                div.navbar-collapse.collapse
+                    ul.nav.navbar-nav
                         li
-                            a(href="/logout") Logout
-                    else
-                        li
-                            a(href="/login") Login
-                        li
-                            a(href="/signup") Create Account
-            section.content
+                            a(href="/") Home
+                    ul.nav.navbar-nav.navbar-right
+                        if session.isLoggedIn
+                            li
+                                a(href="/logout") Logout
+                        else
+                            li
+                                a(href="/login") Login
+                            li
+                                a(href="/signup") Create Account
+        section.content
+            div.container
                 block content

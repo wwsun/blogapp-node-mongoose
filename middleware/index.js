@@ -16,7 +16,7 @@ module.exports = function(app) {
     app.use(cookieParser());
     app.use(session( {secret: 'building a blog app'} ))
 
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, '../public')));
 
     // expose session to views
     app.use(function(req, res, next) {

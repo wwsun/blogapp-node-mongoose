@@ -1,13 +1,12 @@
 extends layout
 block content
     if session.isLoggedIn
-        p
-            a(href="/post/create") New post
+        div.row
+            a(href="/post/create").btn.btn-primary New post
+        br
     if !(posts && posts.length)
         p Nothing to see here. Move along...
     else
-        ul.posts
+        div.posts.list-group
             each post in posts
-                li
-                    h2
-                        a(href="/post/#{post.id}")= post.title
+                a(href="/post/#{post.id}").list-group-item.post= post.title
