@@ -1,9 +1,8 @@
 var errors = require('./errors');
 var login = require('./login');
-
 var posts = require('./posts');
-var mongoose = require('mongoose');
 
+var mongoose = require('mongoose');
 var BlogPost = mongoose.model('BlogPost');
 
 module.exports = function (app) {
@@ -12,7 +11,7 @@ module.exports = function (app) {
     app.get('/', function (req, res) {
         BlogPost.find().sort('created').limit(10).exec(function (err, posts) {
             if (err) return next(err);
-            res.render('index', { posts: posts });
+            res.render('index', {posts: posts});
         })
     });
 
